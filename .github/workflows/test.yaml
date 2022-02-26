@@ -1,20 +1,26 @@
 name: test
-on: 
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+    - '*'
   workflow_dispatch:
     inputs:
-      mode:
-        description: 'mode'     
+      caller:
+        description: 'caller'
         required: false
-        default: 'dev' 
+        default: 'web_ui'
 
 jobs:
   log-me:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Mode: $MODE"
+          echo "Called by: $CALLER"
         env:
-          MODE: ${{ github.event.inputs.mode }}
+          CALLER: ${{ github.event.inputs.caller }}
       - name: Pause for 25 seconds
         run: |
           sleep 25
