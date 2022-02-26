@@ -1,0 +1,20 @@
+name: test
+on: 
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'mode'     
+        required: false
+        default: 'dev' 
+
+jobs:
+  log-me:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Mode: $MODE"
+        env:
+          MODE: ${{ github.event.inputs.mode }}
+      - name: Pause for 25 seconds
+        run: |
+          sleep 25
